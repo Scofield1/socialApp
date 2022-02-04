@@ -1,0 +1,23 @@
+<div class="bg-light p-3">
+                <h4>Recent Activities</h4>
+                <hr class="my-4">
+                {% for message in room_message %}
+                <div>
+                    <span><img class="rounded-circle"
+                               src="{{ message.user.profilemodel.image.url }}"
+                               style="height: 40px;"></span>
+                    <span><a href="{% url 'user-profile' message.user.id %}" class="text-decoration-none">@{{ message.user }}</a> <small>{{ message.created|timesince }} ago</small></span>
+                        <div>
+                        <small>Replied to <span class="badge rounded-pill bg-primary">{{ message.room }}</span></small>
+                        </div>
+                        <small>{{ message.created|timesince }} ago</small>
+                        <div class="alert alert-info ms-3" role="alert">
+                            <a class="text-decoration-none" href="{% url 'room_details' message.room.id %}">
+                                <small>{{ message.body|truncatewords:6 }}</small>
+                            </a>
+                        </div>
+                </div>
+                <hr class="my-1">
+                {% endfor %}
+
+            </div>

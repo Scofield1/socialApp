@@ -1,0 +1,26 @@
+{% extends 'component/base.html' %}
+
+{% load crispy_forms_tags %}
+{% block title %} Home Page {% endblock title %}
+
+{% block content%}
+<section>
+    <div class="row my-5">
+        <div class="col-md-3">
+            <form method="POST">{% csrf_token %}
+                <div class="input-group mb-3">
+                    {{ form}}
+                    <button id="button-addon3" type="submit" class="btn btn-info">Add</button>
+                </div>
+            </form>
+            {% include 'component/topic_component.html' %}
+        </div>
+        <div class="col-md-6">
+            {% include 'component/room_component.html' %}
+        </div>
+        <div class="col-md-3">
+            {% include 'component/activities_component.html' %}
+        </div>
+    </div>
+</section>
+{% endblock %}

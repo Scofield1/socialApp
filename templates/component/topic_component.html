@@ -1,0 +1,10 @@
+<div class="bg-light p-3">
+                <h4>Browse Topics</h4>
+                <hr class="my-4">
+                <div><a href="{% url 'index' %}" class="text-decoration-none">All <span class="badge rounded-pill bg-primary">{{ topics.count }}</span></a></div>
+                {% for topic in topics %}
+                <div>
+                    <a href="{% url 'index'%}?q={{topic.name}}" class="text-decoration-none">{{ topic.name }} <span class="badge rounded-pill bg-primary">{{ topic.roommodel_set.all.count }}</span></a>
+                </div>
+                {% endfor %}
+            </div>

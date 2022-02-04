@@ -1,0 +1,134 @@
+{% extends 'component/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Profile Page  {% endblock title %}
+{% block content %}
+<section class="my-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card text-dark">
+                <div class="card-header bg-info">Profile Info</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span class="h4">View Profile Info</span><span>
+                            {% if request.user == user %}
+                            <a href=""
+                               data-bs-toggle="modal" data-bs-target="#exampleModal"
+                               class="btn-sm btn-info float-end text-decoration-none">
+                                Edit
+                            </a>
+                            {% endif %}
+                        </span>
+                            <hr>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">Name:</th>
+                                    <td>{{ user.profilemodel.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Username:</th>
+                                    <td>{{ user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Bio:</th>
+                                    <td>{{ user.profilemodel.bio }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email:</th>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Phone:</th>
+                                    <td>{{ user.profilemodel.phone_number}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Address:</th>
+                                    <td>{{ user.profilemodel.address }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-4">
+                            <img class="img-thumbnail"
+                                 src="{{ user.profilemodel.image.url }}">
+                            <div class="mt-3">
+                                <h6><a href="{{ user.profilemodel.image.url }}" class="text-decoration-none">View
+                                    Profile Picture</a></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="my-5">
+                <div class="co">
+<!--                    {% include 'component/room_component.html' %}-->
+                    <div class="bg-light p-3">
+    <span class="h4">Rooms Hosted by {{ user }}</span>
+    <span><a href="{% url 'create_room' %}" class="btn btn-info float-end"><i
+            class="fas fa-edit"></i> Create Room</a></span>
+    <hr class="my-4">
+    {% for room in rooms %}
+    <div class="bg-info border rounded p-2 mb-2">
+        <small><a href="{% url 'user-profile' room.host.id %}">@{{room.host}}</a></small> <small>{{room.created|timesince}}</small>
+        <span><a href="{% url 'delete_room' room.id %}" class="btn btn-white bg-white float-end ml-2"><i
+                class="fas fa-trash"></i> Delete Room</a></span>
+        <span><a href="{% url 'edit_room' room.id %}" class="btn btn-white bg-white float-end"><i
+                class="fas fa-plus"></i> Edit Room</a></span>
+        <h6>{{ room.name }}</h6>
+        <p>{{ room.description|truncatewords:20}} <a href="{% url 'room_details' room.id %}"
+                                                     class="btn-sm btn-white bg-white text-decoration-none">Show
+            Discussion</a></p>
+        <hr class="my-3">
+        <div>
+            <span><i class="fas fa-user-friends"></i> 5.3k joined</span>
+            <span class="badge rounded-pill bg-primary float-end">{{ room.topic }}</span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+                </div>
+            </div>
+        </div>
+        <div class="col md-4">
+            {% include 'component/activities_component.html' %}
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Profile Page</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <span class="h4">Edit Profile</span>
+                        <hr>
+                        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+                            {{ u_form|crispy }}
+                            {{ p_form|crispy }}
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" value="Save Changes" class="btn btn-primary">
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <img class="img-thumbnail"
+                             src="{{ user.profilemodel.image.url }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

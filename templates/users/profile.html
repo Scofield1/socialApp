@@ -1,0 +1,62 @@
+{% extends 'component/base.html' %}
+{% load static %}
+
+{% block title %} Profile Page  {% endblock title %}
+
+{% block content %}
+<section class="my-4">
+    <div class="row">
+        <div class="col md-4"></div>
+        <div class="col-md-8">
+            <div class="card text-dark">
+                <div class="card-header bg-info">Profile Page</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span class="h4">Staff Profile Info</span><span>
+                            <a href="{% url 'edit_profile' %}"
+                               class="btn-sm btn-info float-end text-decoration-none">
+                                Edit
+                            </a>
+                        </span>
+                            <hr>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">Name:</th>
+                                    <td>{{ user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email:</th>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Phone:</th>
+                                    <td>{{ user.profilemodel.phone_number}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Address:</th>
+                                    <td>{{ user.profilemodel.address }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="col-md-4">
+                            <img class="img-thumbnail"
+                                 src="{{ user.profilemodel.image.url }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for room in rooms %}
+    {{ room }}
+    {% endfor %}
+</section>
+{% endblock %}
