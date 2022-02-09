@@ -19,14 +19,7 @@ def index(request):
     )
     room_count = room.count()
     room_message = MessageModel.objects.filter(Q(room__topic__name__icontains=q))
-    form = TopicForm()
-    if request.method == 'POST':
-        form = TopicForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
     context = {
-        'form': form,
         'topics': topic,
         'rooms': room,
         'room_count': room_count,
@@ -82,7 +75,7 @@ def login_page(request):
             login(request, user)
             return redirect('/')
         else:
-            messages.info(request, 'Invalid Credentials')
+            messages.error(request, 'Invalid Credentials')
     context = {}
     return render(request, 'users/login.html', context)
 
@@ -95,7 +88,6 @@ def logout_page(request):
 
 @login_required(login_url='login')
 def create_room(request):
-    form = CreateRoomForm()
     if request.method == 'POST':
         form = CreateRoomForm(request.POST or None)
         if form.is_valid():
@@ -103,8 +95,18 @@ def create_room(request):
             instance.host = request.user
             instance.save()
             return redirect('/')
+    else:
+        form = CreateRoomForm()
+    if request.method == 'POST':
+        c_form = TopicForm(request.POST or None)
+        if c_form.is_valid():
+            c_form.save()
+            return redirect('/')
+    else:
+        c_form = TopicForm()
     context = {
-        'form': form
+        'form': form,
+        'c_form': c_form
     }
     return render(request, 'main/create.html', context)
 

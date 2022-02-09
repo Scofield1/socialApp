@@ -70,7 +70,7 @@ class CommentUpdateForm(forms.ModelForm):
 
 
 class TopicForm(forms.ModelForm):
-    name = forms.CharField(label='Add Topic ', widget=forms.TextInput(attrs={
+    name = forms.CharField(label='', widget=forms.TextInput(attrs={
         'aria-describedby': 'button-addon3',
         'class': 'form-control'
     }))

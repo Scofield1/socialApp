@@ -10,6 +10,30 @@
             <div class="p-4 bg-light">
                 <h3>Create Room</h3>
                 <hr class="my-4">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                Click here to create a topic or Skip
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                             aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body /">
+                                <form method="POST" class="mt-3">{% csrf_token %}
+                                    <div class="input-group mb-3">
+                                        {{ c_form }}
+                                        <button id="button-addon3" type="submit" class="btn btn-info">
+                                            Add
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <form method="POST">{% csrf_token %}
                     {{ form|crispy }}
                     <input type="submit" class="btn btn-primary mt-3">
