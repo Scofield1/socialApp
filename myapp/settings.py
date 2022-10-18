@@ -119,7 +119,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+CSRF_TRUSTED_ORIGINS = ['https://web-production-b732.up.railway.app', 'https://*.127.0.0.1']
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
