@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'myapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'social-app',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'Scofield',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PASSWORD': 'eMgzYwmLp3u8EDhiH84b',
+        'HOST': 'containers-us-west-105.railway.app',
+        'PORT': '5850',
     }
 }
 # Password validation
